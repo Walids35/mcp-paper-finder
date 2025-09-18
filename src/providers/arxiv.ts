@@ -3,8 +3,9 @@ import { Paper } from "../types/paper.js";
 import path from "path/win32";
 import fs from "fs";
 import { PdfReader } from "pdfreader";
+import { PaperSource } from "../paper-source.js";
 
-export class ArxivSearcher {
+export class ArxivSearcher implements PaperSource {
     BASE_URL: string;
     constructor() {
         this.BASE_URL = "http://export.arxiv.org/api/query";
