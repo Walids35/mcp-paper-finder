@@ -12,7 +12,7 @@ export class ArxivSearcher {
 
     async search(query: string, max_results: number = 10): Promise<Paper[]> {
         const params = new URLSearchParams({
-            search_query: query,
+            search_query: `all:"${query}"`,
             max_results: max_results.toString(),
             sortBy: "submittedDate",
             sortOrder: "descending",
