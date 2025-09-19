@@ -212,6 +212,68 @@ server.tool(
     }
 );
 
+// Biorxiv Tool
+server.tool(
+    "biorxiv_search",
+    "Search for academic papers on bioRxiv",
+    {
+        query: z.string().describe("The search query string"),
+        max_results: z.number().optional().describe("Maximum number of results to return"),
+    },
+    async ({ query, max_results }) => {
+        const { BiorxivSearcher } = await import("./providers/biorxiv.js");
+        const searcher = new BiorxivSearcher();
+        const results = await searcher.search(query, max_results);
+        return {
+            content: [{
+                type: "text",
+                text: `${JSON.stringify(results, null, 2)}`
+            }]
+        }
+    }
+)
+
+// Download Biorxiv Paper Tool
+server.tool(
+    "download_biorxiv_paper",
+    "Download a paper from bioRxiv by its DOI",
+    {
+        doi: z.string().describe("The bioRxiv paper DOI"),
+        save_path: z.string().describe("Directory to save the downloaded paper").default("./downloads"),
+    },
+    async ({ doi, save_path }) => {
+        const { BiorxivSearcher } = await import("./providers/biorxiv.js");
+        const searcher = new BiorxivSearcher();
+        const result = await searcher.downloadPDF(doi, save_path);
+        return {
+            content: [{
+                type: "text",
+                text: `${JSON.stringify(result, null, 2)}`
+            }]
+        }
+    }
+)
+
+// Read Biorxiv Paper Tool
+server.tool(
+    "read_biorxiv_paper",
+    "Read and extract text from a downloaded bioRxiv paper by its DOI",
+    {
+        doi: z.string().describe("The bioRxiv paper DOI"),
+        save_path: z.string().describe("Directory where the paper is saved").default("./downloads"),
+    },
+    async ({ doi, save_path }) => {
+        const { BiorxivSearcher } = await import("./providers/biorxiv.js");
+        const searcher = new BiorxivSearcher();
+        const result = await searcher.readPaper(doi, save_path);
+        return {
+            content: [{
+                type: "text",
+                text: `${result}`
+            }]
+        }
+    }
+)
 
 
 
