@@ -96,7 +96,100 @@ server.tool(
 )
 
 
+// Zenodo Tool
+server.tool(
+    "zenodo_search",
+    "Search for academic papers on Zenodo",
+    {
+        query: z.string().describe("The search query string"),
+        max_results: z.number().optional().describe("Maximum number of results to return"),
+        community: z.string().optional().describe("Community slug (e.g., 'kios-coe')"),
+        year: z.string().optional().describe("Year or range (e.g., '2025', '2016-2020', '2010-', '-2015')"),
+        resource_type: z.string().optional().describe("Resource type (e.g., 'publication', 'dataset')"),
+        subtype: z.string().optional().describe("Subtype (e.g., 'conferencepaper', 'article')"),
+        creators: z.array(z.string()).optional().describe("List of author names to match"),
+        keywords: z.array(z.string()).optional().describe("List of keywords to match"),
+        sort: z.string().optional().describe("Field to sort by (e.g., 'mostrecent', 'bestmatch', 'version')"),
+        order: z.string().optional().describe("'asc' or 'desc'"),
+    },
+    async ({
+        query,
+        max_results,
+        community,
+        year,
+        resource_type,
+        subtype,
+        creators,
+        keywords,
+        sort,
+        order,
+    }) => {
+        const { ZenodoSearcher } = await import("./providers/zenodo.js");
+        const searcher = new ZenodoSearcher();
+        const results = await searcher.search(
+            query,
+            max_results,
+            {
+                community,
+                year,
+                resource_type,
+                subtype,
+                creators,
+                keywords,
+                sort,
+                order,
+            }
+        );
+        return {
+            content: [{
+                type: "text",
+                text: `${JSON.stringify(results, null, 2)}`
+            }]
+        };
+    }
+);
 
+// Download Zenodo Paper Tool
+server.tool(
+    "download_zenodo_paper",
+    "Download a paper from Zenodo by its record ID",
+    {
+        record_id: z.string().describe("The Zenodo record ID"),
+        save_path: z.string().describe("Directory to save the downloaded paper").default("./downloads"),
+    },
+    async ({ record_id, save_path }) => {
+        const { ZenodoSearcher } = await import("./providers/zenodo.js");
+        const searcher = new ZenodoSearcher();
+        const result = await searcher.downloadPDF(record_id, save_path);
+        return {
+            content: [{
+                type: "text",
+                text: `${JSON.stringify(result, null, 2)}`
+            }]
+        };
+    }
+);
+
+// Read Zenodo Paper Tool
+server.tool(
+    "read_zenodo_paper",
+    "Read and extract text from a downloaded Zenodo paper by its record ID",
+    {
+        record_id: z.string().describe("The Zenodo record ID"),
+        save_path: z.string().describe("Directory where the paper is saved").default("./downloads"),
+    },
+    async ({ record_id, save_path }) => {
+        const { ZenodoSearcher } = await import("./providers/zenodo.js");
+        const searcher = new ZenodoSearcher();
+        const result = await searcher.readPaper(record_id, save_path);
+        return {
+            content: [{
+                type: "text",
+                text: `${result}`
+            }]
+        };
+    }
+);
 
 async function main() {
     const transport = new StdioServerTransport();
