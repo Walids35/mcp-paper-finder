@@ -13,7 +13,7 @@ export class ElsevierSearcher implements PaperSource {
       process.env.ELSEVIER_API_KEY || "b2f93eda9c4806f03ec351ee41abb87b";
   }
 
-  async search(query: string, max_results: number = 10, date: string): Promise<Paper[]> {
+  async search(query: string, max_results: number = 10, date: string = "2020"): Promise<Paper[]> {
     try {
       const params = new URLSearchParams({
         query: query,
