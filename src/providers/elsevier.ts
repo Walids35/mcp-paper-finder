@@ -1,6 +1,8 @@
 import { PaperSource } from "../paper-source.js";
 import { Paper } from "../types/paper.js";
 import { DOMParser } from "xmldom";
+import dotenv from 'dotenv';
+dotenv.config();
 
 export class ElsevierSearcher implements PaperSource {
   BASE_URL: string;
@@ -10,7 +12,7 @@ export class ElsevierSearcher implements PaperSource {
     this.BASE_URL = "https://api.elsevier.com/content/search/sciencedirect";
     this.ARTICLE_URL = "https://api.elsevier.com/content/article/pii/";
     this.API_KEY =
-      process.env.ELSEVIER_API_KEY || "b2f93eda9c4806f03ec351ee41abb87b";
+      process.env.ELSEVIER_API_KEY || "";
   }
 
   async search(query: string, max_results: number = 10, date: string = "2020"): Promise<Paper[]> {
