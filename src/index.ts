@@ -73,6 +73,31 @@ server.tool(
     }
 )
 
+// Elsevier Tool
+server.tool(
+    "elsevier_search",
+    "Search for academic papers on Elsevier",
+    {
+        query: z.string().describe("The search query string"),
+        max_results: z.number().optional().describe("Maximum number of results to return"),
+        date: z.string().describe("Start date in YYYY format"),
+    },
+    async ({ query, max_results, date }) => {
+        const { ElsevierSearcher } = await import("./providers/elsevier.js");
+        const searcher = new ElsevierSearcher();
+        const results = await searcher.search(query, max_results, date);
+        return {
+            content: [{
+                type: "text",
+                text: `${JSON.stringify(results, null, 2)}`
+            }]
+        }
+    }
+)
+
+
+
+
 async function main() {
     const transport = new StdioServerTransport();
     await server.connect(transport);
