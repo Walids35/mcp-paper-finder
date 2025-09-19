@@ -191,6 +191,36 @@ server.tool(
     }
 );
 
+// Download Sci-Hub Paper Tool
+server.tool(
+    "download_scihub_paper",
+    "Download a paper from Sci-Hub by its identifier (DOI, URL, etc.)",
+    {
+        identifier: z.string().describe("The paper identifier (DOI, URL, etc.)"),
+        save_path: z.string().describe("Directory to save the downloaded paper").default("./downloads"),
+    },
+    async ({ identifier, save_path }) => {
+        const { SciHubSearcher } = await import("./providers/scihub.js");
+        const searcher = new SciHubSearcher(save_path);
+        const result = await searcher.downloadPDF(identifier);
+        return {
+            content: [{
+                type: "text",
+                text: result ? `Downloaded to: ${result}` : "Failed to download paper."
+            }]
+        };
+    }
+);
+
+
+
+
+
+
+
+
+
+
 async function main() {
     const transport = new StdioServerTransport();
     await server.connect(transport);
