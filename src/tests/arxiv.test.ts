@@ -12,7 +12,7 @@ describe("ArxivSearcher", () => {
     });
 
     it("should download a PDF", async () => {
-        const paperId = "2101.00001";
+        const paperId = "2509.11982v1";
         const savePath = "./downloads";
         if (!fs.existsSync(savePath)) fs.mkdirSync(savePath);
         const pdfPath = await searcher.downloadPDF(paperId, savePath);
@@ -22,7 +22,7 @@ describe("ArxivSearcher", () => {
     });
 
     it("should read a PDF and extract text", async () => {
-        const paperId = "2101.00001";
+        const paperId = "2509.11982v1";
         const savePath = "./downloads";
         if (!fs.existsSync(savePath)) fs.mkdirSync(savePath);
         const pdfPath = await searcher.downloadPDF(paperId, savePath);
