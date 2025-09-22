@@ -15,14 +15,14 @@ describe("SciHubFetcher", () => {
     });
 
     it("should attempt to download a real PDF (if available)", async () => {
-        // This test may fail if Sci-Hub is blocked or the DOI is not available.
+        // This test may fail if Sci-Hub is blocked.
         const result = await fetcher.downloadPDF("10.1038/s41586-020-2649-2");
         expect(typeof result === "string" || result === null).toBe(true);
         if (result && fs.existsSync(result)) {
             // Clean up
             fs.unlinkSync(result);
         }
-    });
+    }, 20000);
 
     it("should generate a filename with hash and identifier", () => {
         // Private method test via public interface
