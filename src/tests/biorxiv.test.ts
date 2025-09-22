@@ -1,9 +1,9 @@
-import { BioRxivSearcher } from "../providers/biorxiv.js";
+import { BiorxivSearcher } from "../providers/biorxiv.js";
 import fs from "fs";
 
 
-describe("BioRxivSearcher", () => {
-  const searcher = new BioRxivSearcher();
+describe("BiorxivSearcher", () => {
+  const searcher = new BiorxivSearcher();
   const testSavePath = "./downloads";
 
   it("should search bioRxiv and return papers", async () => {
