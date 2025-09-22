@@ -338,11 +338,26 @@ server.tool(
     }
 )
 
-
-
-
-
-
+// Google Scholar Tool
+server.tool(
+    "google_scholar_search",
+    "Search for academic papers on Google Scholar",
+    {
+        query: z.string().describe("The search query string"),
+        max_results: z.number().optional().describe("Maximum number of results to return"),
+    },
+    async ({ query, max_results }) => {
+        const { GoogleScholarSearcher } = await import("./providers/google-scholar.js");
+        const searcher = new GoogleScholarSearcher();
+        const results = await searcher.search(query, max_results);
+        return {
+            content: [{
+                type: "text",
+                text: `${JSON.stringify(results, null, 2)}`
+            }]
+        }
+    }
+)
 
 
 async function main() {
