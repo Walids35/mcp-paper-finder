@@ -275,6 +275,68 @@ server.tool(
     }
 )
 
+// Medrxiv Tool
+server.tool(
+    "medrxiv_search",
+    "Search for academic papers on medRxiv",
+    {
+        query: z.string().describe("The search query string"),
+        max_results: z.number().optional().describe("Maximum number of results to return"),
+    },
+    async ({ query, max_results }) => {
+        const { MedrxivSearcher } = await import("./providers/medrxiv.js");
+        const searcher = new MedrxivSearcher();
+        const results = await searcher.search(query, max_results);
+        return {
+            content: [{
+                type: "text",
+                text: `${JSON.stringify(results, null, 2)}`
+            }]
+        }
+    }
+)
+
+// Download Medrxiv Paper Tool
+server.tool(
+    "download_medrxiv_paper",
+    "Download a paper from medRxiv by its DOI",
+    {
+        doi: z.string().describe("The medRxiv paper DOI"),
+        save_path: z.string().describe("Directory to save the downloaded paper").default("./downloads"),
+    },
+    async ({ doi, save_path }) => {
+        const { MedrxivSearcher } = await import("./providers/medrxiv.js");
+        const searcher = new MedrxivSearcher();
+        const result = await searcher.downloadPDF(doi, save_path);
+        return {
+            content: [{
+                type: "text",
+                text: `${JSON.stringify(result, null, 2)}`
+            }]
+        }
+    }
+)
+
+// Read Medrxiv Paper Tool
+server.tool(
+    "read_medrxiv_paper",
+    "Read and extract text from a downloaded medRxiv paper by its DOI",
+    {
+        doi: z.string().describe("The medRxiv paper DOI"),
+        save_path: z.string().describe("Directory where the paper is saved").default("./downloads"),
+    },
+    async ({ doi, save_path }) => {
+        const { MedrxivSearcher } = await import("./providers/medrxiv.js");
+        const searcher = new MedrxivSearcher();
+        const result = await searcher.readPaper(doi, save_path);
+        return {
+            content: [{
+                type: "text",
+                text: `${result}`     
+            }]
+        }
+    }
+)
 
 
 
