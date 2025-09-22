@@ -5,7 +5,7 @@ export type Paper = {
     abstract: string;
     url: string;
     published_date: Date;
-    updated_date: Date;
+    updated_date: Date | undefined;
     source: string;
     categories: string[];
     keywords: string[];
