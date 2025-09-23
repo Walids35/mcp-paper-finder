@@ -359,6 +359,32 @@ server.tool(
     }
 )
 
+// Crossref Tool
+server.tool(
+    "crossref_search",
+    "Search for academic papers on Crossref",
+    {
+        query: z.string().describe("The search query string"),
+        max_results: z.number().optional().describe("Maximum number of results to return"),
+        options: z.object({
+            filter: z.string().optional().describe("Key-value pairs to filter results (e.g., { 'from-pub-date': '2020-01-01' })"),
+            sort: z.string().optional().describe("Field to sort by (e.g., 'relevance', 'published')"),
+            order: z.string().optional().describe("'asc' or 'desc'"),
+        }).optional().describe("Additional search options"),
+    },
+    async ({ query, max_results, options }) => {
+        const { CrossRefSearcher } = await import("./providers/crossref.js");
+        const searcher = new CrossRefSearcher();
+        const results = await searcher.search(query, max_results, options);
+        return {
+            content: [{
+                type: "text",
+                text: `${JSON.stringify(results, null, 2)}`
+            }]
+        }
+    }
+)
+
 
 async function main() {
     const transport = new StdioServerTransport();
