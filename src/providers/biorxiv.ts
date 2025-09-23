@@ -29,7 +29,7 @@ export class BiorxivSearcher implements PaperSource {
       let tries = 0;
       while (tries < this.maxRetries) {
         try {
-            console.log(`Fetching: ${url}`);
+          
           const response = await fetch(url, { signal: AbortSignal.timeout(this.timeout) });
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
           const data = await response.json();
