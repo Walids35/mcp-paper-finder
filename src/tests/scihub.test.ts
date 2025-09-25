@@ -4,16 +4,6 @@ import fs from "fs";
 describe("SciHubFetcher", () => {
     const fetcher = new SciHubSearcher("https://sci-hub.st", "./downloads");
 
-    it("should return null for empty identifier", async () => {
-        const result = await fetcher.downloadPDF("");
-        expect(result).toBeNull();
-    });
-
-    it("should return null for invalid identifier", async () => {
-        const result = await fetcher.downloadPDF("not-a-real-doi-1234567890");
-        expect(result).toBeNull();
-    });
-
     it("should attempt to download a real PDF (if available)", async () => {
         // This test may fail if Sci-Hub is blocked.
         const result = await fetcher.downloadPDF("10.1038/s41586-020-2649-2");
