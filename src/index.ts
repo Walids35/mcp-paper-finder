@@ -192,6 +192,8 @@ server.tool(
 );
 
 // Download Sci-Hub Paper Tool
+
+/*
 server.tool(
     "download_scihub_paper",
     "Download a paper from Sci-Hub by its identifier (DOI, URL, etc.)",
@@ -211,6 +213,7 @@ server.tool(
         };
     }
 );
+*/
 
 // Biorxiv Tool
 server.tool(
@@ -387,9 +390,9 @@ server.tool(
 
 
 async function main() {
-    const transport = new StdioServerTransport();
-    await server.connect(transport);
-    console.error("Server connected and running...");
+        const transport = new StdioServerTransport();
+        await server.connect(transport);
+        console.error("Server connected and running...");
 }
 
 main().catch((err) => {
