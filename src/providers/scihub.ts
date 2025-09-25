@@ -6,6 +6,8 @@ import fs from "fs";
 import path from "path";
 import crypto from "crypto";
 import * as cheerio from "cheerio";
+import dotenv from 'dotenv';
+dotenv.config();
 
 export class SciHubSearcher {
     baseUrl: string;
@@ -25,6 +27,12 @@ export class SciHubSearcher {
             'DNT': '1',
             'Connection': 'keep-alive',
             'Upgrade-Insecure-Requests': '1',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Sec-Fetch-User': '?1',
+            'Cache-Control': 'no-cache',
+            'Cookie': process.env.SCIHUB_COOKIE || "__ddgid_=PKaSMnggKrq1iuUo; __ddg2_=RUXqop5fEZVvoQcF; __ddg1_=AdwcVbegzm7paGgPciTQ; session=7f3ed2c648e6b5f16e1dafbeefda74b2; PHPSESSID=auphf5kotj8fclbphuuts7pc2p; refresh=1758291149.988; __ddgmark_=wy62MI5yHVpoNV9m; __ddg5_=Y0fQ9REY8zdW4DRq; ddg_last_challenge=1758726651134; __ddg9_=158.64.79.9; __ddg10_=1758729542; __ddg8_=Cldms9Hi606pivvK"
         };
     }
 
@@ -42,7 +50,7 @@ export class SciHubSearcher {
             });
 
             if (!response.ok) {
-                console.error(`Failed to download PDF, status ${response.status}`);
+                console.error(`Failed to download PDF, status ${response.status} ${response.statusText}`);
                 return null;
             }
 
