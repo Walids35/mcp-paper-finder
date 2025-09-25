@@ -98,6 +98,9 @@ src/
 2. Register it as a tool in `src/index.ts`.
 3. Add tests in `src/tests/`.
 
+## Demo
+![MCP Paper Finder DEMO](docs/images/demo.png)
+
 ## License 📜
 
 [ISC](LICENSE)
