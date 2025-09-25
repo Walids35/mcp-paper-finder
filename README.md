@@ -32,7 +32,7 @@ You can run MCP Paper Finder in two ways:
 
 Add the Docker run command (or a wrapper script) as your MCP tool path in your MCP client. Feel free to add `env` variable in the env section. Env variables are presented in `.env.example`.
 
-```sh
+```json
 "mcpServers": {
   "paper-finder": {
     "command": "docker",
@@ -47,8 +47,8 @@ Add the Docker run command (or a wrapper script) as your MCP tool path in your M
     "env": {
         "LOCALAPPDATA": "C:\\Users\\wsial\\AppData\\Local",
         "ProgramData": "C:\\ProgramData",
-        "ProgramFiles": "C:\\Program Files"
-        "ELSEVIER_API_KEY": "your API KEY" #OPTIONAL
+        "ProgramFiles": "C:\\Program Files",
+        "ELSEVIER_API_KEY": "your API KEY" // OPTIONAL
       }
   }
 }
