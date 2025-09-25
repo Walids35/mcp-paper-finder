@@ -57,6 +57,7 @@ Add the Docker run command (or a wrapper script) as your MCP tool path in your M
 ### 2. Run Locally 💻
 
 ```sh
+git clone https://github.com/Walids35/mcp-paper-finder.git
 npm install
 npm run build
 ```
