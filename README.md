@@ -1,6 +1,6 @@
 # MCP Paper Finder 📚🔍
 
-A modular, extensible [Model Context Protocol (MCP)](https://github.com/modelcontextprotocol/spec) server for searching, downloading, and reading academic papers from multiple sources, including arXiv, Zenodo, bioRxiv, medRxiv, CrossRef, Google Scholar, ResearchGate, Sci-Hub, and Elsevier.
+A modular, extensible Model Context Protocol (MCP) server for searching, downloading, and reading academic papers from multiple sources, including arXiv, Zenodo, bioRxiv, medRxiv, CrossRef, Google Scholar, ResearchGate, Sci-Hub, and Elsevier.
 
 ![MCP Paper Finder](docs/images/Diagram.jpg)
 
