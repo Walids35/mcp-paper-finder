@@ -30,7 +30,7 @@ You can run MCP Paper Finder in two ways:
 
 ### 1. Run with Docker (Recommended) 🐳
 
-Add the Docker run command (or a wrapper script) as your MCP tool path in your MCP client. Feel free to add `env` variable in the env section. Env variables are presented in `.env.example`.
+Add the Docker run command as your MCP tool path in your MCP client. Feel free to add `env` variable in the env section. Env variables are presented in `.env.example`.
 
 ```json
 "mcpServers": {
@@ -42,7 +42,7 @@ Add the Docker run command (or a wrapper script) as your MCP tool path in your M
         "-i",
         "-e",
         "DOTENV_CONFIG_QUIET=true",
-        "mcp-paper-image"
+        "walids35/mcp-paper-finder"
     ],
     "env": {
         "LOCALAPPDATA": "C:\\Users\\wsial\\AppData\\Local",
@@ -58,6 +58,7 @@ Add the Docker run command (or a wrapper script) as your MCP tool path in your M
 
 ```sh
 git clone https://github.com/Walids35/mcp-paper-finder.git
+cd mcp-paper-finder
 npm install
 npm run build
 ```
