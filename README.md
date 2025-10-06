@@ -45,7 +45,9 @@ Copy this JSON as your MCP tool in your MCP client (Make sure to locate the conf
         "walids35/mcp-paper-finder"
     ],
     "env": {
-        "ELSEVIER_API_KEY": "your API KEY" // OPTIONAL
+        "ELSEVIER_API_KEY": "your API KEY", // OPTIONAL (in case you want to use elsevier provider)
+        "RESEARCHGATE_COOKIE": "", // OPTIONAL (in case of 429 Too many requests error)
+        "SCIHUB_COOKIE": "" // OPTIONAL (recommended to bypass DDOS Guard)
       }
   }
 }
