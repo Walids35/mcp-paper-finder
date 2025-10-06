@@ -6,7 +6,6 @@ describe("ArxivSearcher", () => {
 
     it("should search arXiv and return papers", async () => {
         const results = await searcher.search("news sentiment stock prediction deep learning", 10);
-        console.log(results);
         expect(Array.isArray(results)).toBe(true);
         expect(results.length).toBeGreaterThan(0);
         expect(results[0]).toHaveProperty("title");
